@@ -194,6 +194,12 @@
          */
         showOn: 'focus',
         /**
+         * Defines what happens when the header "Month, Year" is clicked.
+         * 'selectWholeMonth' will select the whole month as a range, while
+         * 'switchMonthYearView' will show Month/Year picker, which was the default behaviour.
+         */
+        headerClick: 'selectWholeMonth',
+        /**
          * Callback, invoked prior to the rendering of each date cell, which
          * allows control of the styling of the cell via the returned hash.
          *
@@ -490,7 +496,7 @@
               // clicking on the title of a Month Datepicker
               tmp.addMonths(tblIndex - currentCal);
 
-              if(options.mode == 'range') {
+              var selectWholeMonth = function(){
                 // range, select the whole month
                 options.date[0] = (tmp.setHours(0,0,0,0)).valueOf();
                 tmp.addDays(tmp.getMaxDays()-1);
@@ -499,7 +505,9 @@
                 fillIt = true;
                 changed = true;
                 options.lastSel = false;
-              } else if(options.calendars == 1) {
+              }
+
+              var switchMonthYearView = function(){
                 // single/multiple mode with a single calendar: swap between daily/monthly/yearly view.
                 // Note:  there's no reason a multi-calendar widget can't have this functionality,
                 //   however I think it looks really unintuitive.
@@ -513,6 +521,20 @@
                   tblEl.eq(0).toggleClass('datepickerViewYears datepickerViewDays');
                   el.find('span').text(tmp.getMonthName(true)+", "+tmp.getFullYear());
                 }
+              }
+
+              if(options.mode == 'range') {
+                switch(options.headerClick){
+                  case 'switchMonthYearView':
+                    switchMonthYearView();
+                    break;
+                  case 'selectWholeMonth':
+                  default:
+                    selectWholeMonth();
+                  break;
+                }
+              } else if(options.calendars == 1) {
+                switchMonthYearView();
               }
             } else if (parentEl.parent().parent().is('thead')) {
               // clicked either next/previous arrows
@@ -933,7 +955,7 @@
        * @return array where the first element is the selected date(s)  When calendar mode  is 'single' this
        *        is a single date object, or null if no date is selected.  When calendar mode is 'range', this is an array containing
        *        a 'from' and 'to' date objects, or the empty array if no date range is selected.  When calendar mode is 'multiple' this
-       *       	is an array of Date objects, or the empty array if no date is selected.
+       *               is an array of Date objects, or the empty array if no date is selected.
        *        The second element is the HTMLElement that DatePicker was invoked upon
        *
        * @see DatePickerGetDate()
