@@ -10,9 +10,9 @@ Download the latest release, and jQuery.
     <script type="text/javascript" src="/js/datepicker/js/datepicker.js"></script>
     <link rel="stylesheet" media="screen" type="text/css" href="/js/datepicker/css/base.css" />
     <link rel="stylesheet" media="screen" type="text/css" href="/js/datepicker/css/clean.css" />
-    
+
     <div id="simple-calendar"></div>
-    
+
     <script type="text/javascript">
       $('#simple-calendar').DatePicker({
         mode: 'single',
@@ -21,7 +21,7 @@ Download the latest release, and jQuery.
       });
     </script>
 
-<img src="https://github.com/foxrunsoftware/DatePicker/blob/master/examples/screenshot-1.png?raw=true" />
+<img src="https://github.com/Aevin1387/DatePicker/blob/master/examples/screenshot-1.png?raw=true" />
 
 Take a look at the [examples page](http://foxrunsoftware.github.com/DatePicker/) for live, and additional examples.  Then visit the [API reference page](http://foxrunsoftware.github.com/DatePicker/reference.html).
 
